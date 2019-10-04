@@ -1,2 +1,13 @@
-# Proyecto-Final-Estructuras-De-Datos-ESCOM
-Repositorio dedicado a almacenar las versiones del proyecto final de Estructuras de datos.
+# SISTEMA DE GESTIÓN BIBLIOTECARIA
+
+##INTEGRANTES:
+
+- RAMÍREZ FUENTES EDGAR ALEJANDRO.
+
+## GRUPO: 1CV10 
+
+## DESCRIPCIÓN
+
+EL SISTEMA SE ENCARGARÁ DE GESTIONAR LOS LIBROS, USUARIOS Y PRÉSTAMOS DE UNA BIBLIOTECA.
+
+## FECHA DE ÚLTIMA MODIFICACIÓN: 04/10/2019
