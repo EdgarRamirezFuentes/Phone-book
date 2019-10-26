@@ -16,6 +16,9 @@
 *.gch
 *.pch
 
+# Documentos que crea vi
+*.swp
+
 # Libraries
 *.lib
 *.a
