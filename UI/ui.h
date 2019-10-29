@@ -2,10 +2,14 @@
 #define __UI_H__
 
 #include <gtk/gtk.h>
+GObject *ventanaPrincipal = NULL;
+GObject *ventanaUsuarios = NULL;
+GObject *ventanaLibros = NULL;
+GObject *ventanaPrestamos = NULL;
 
-int abrirVentanaPrincipal (int , char*[]);
-int abrirVentanaUsuarios (int , char*[]);
-int abrirVentanaLibros (int , char*[]);
-int abrirVentanaPrestamos (int , char*[]);
+int abrirVentanaPrincipal ();
+void abrirVentanaUsuarios ( );
+void abrirVentanaLibros ();
+void abrirVentanaPrestamos ();
 
 #endif
