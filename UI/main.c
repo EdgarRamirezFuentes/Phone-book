@@ -1,7 +1,5 @@
-#include <gtk/gtk.h>
+#include "ui.h"
 int main(int argc, char *argv[]){
-	gtk_init(&argc,&argv);
-	abrirVentanaPrincipal();
-	gtk_main();
+	iniciarAplicacion(argc, argv);
 	return 0;
 }
