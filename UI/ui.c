@@ -11,6 +11,10 @@ GObject *ventanaAgregarLibro = NULL;
 GObject *ventanaBuscarLibro = NULL;
 GObject *ventanaEliminarLibro = NULL;
 GObject *ventanaModificarLibro = NULL;
+GObject *ventanaAgregarPrestamo = NULL;
+GObject *ventanaBuscarPrestamo = NULL;
+GObject *ventanaEliminarPrestamo = NULL;
+GObject *ventanaModificarPrestamo = NULL;
 
 
 int iniciarAplicacion(int argc, char *argv[])
@@ -40,8 +44,14 @@ int iniciarAplicacion(int argc, char *argv[])
 	ventanaBuscarLibro = gtk_builder_get_object(builder, "ventanaBuscarLibro");
 	ventanaEliminarLibro = gtk_builder_get_object(builder, "ventanaEliminarLibro");
 	ventanaModificarLibro = gtk_builder_get_object(builder, "ventanaModificarLibro");
+	ventanaAgregarPrestamo = gtk_builder_get_object(builder, "ventanaAgregarPrestamo");
+	ventanaBuscarPrestamo = gtk_builder_get_object(builder, "ventanaBuscarPrestamo");
+	ventanaEliminarPrestamo = gtk_builder_get_object(builder, "ventanaEliminarPrestamo");
+	ventanaModificarPrestamo = gtk_builder_get_object(builder, "ventanaModificarPrestamo");
 	
 	/* Connect signal handlers to the constructed widgets. */
+	
+	/* Callbacks de ventanas principales */
 
 	button = gtk_builder_get_object (builder, "btn-usuarios");
 	g_signal_connect (button, "clicked", G_CALLBACK (abrirVentanaUsuarios), NULL);
@@ -63,6 +73,8 @@ int iniciarAplicacion(int argc, char *argv[])
 
 	button = gtk_builder_get_object (builder, "btn-regresarPrestamos");
 	g_signal_connect (button, "clicked", G_CALLBACK (abrirVentanaPrincipalDesdePrestamos), NULL);
+	
+	/* Callbacks de ventanas de usuarios */
 
 	button = gtk_builder_get_object (builder, "btn-agregarUsuario");
 	g_signal_connect (button, "clicked", G_CALLBACK (abrirVentanaAgregarUsuario), NULL);	
@@ -88,6 +100,8 @@ int iniciarAplicacion(int argc, char *argv[])
 	button = gtk_builder_get_object (builder, "btn-regresarModificarUsuario");
 	g_signal_connect (button, "clicked", G_CALLBACK (abrirVentanaUsuariosDesdeModificarUsuario), NULL);
 
+	/* Callbacks de ventanas de libros */
+	
 	button = gtk_builder_get_object (builder, "btn-agregarLibro");
 	g_signal_connect (button, "clicked", G_CALLBACK (abrirVentanaAgregarLibro), NULL);
        		
@@ -111,13 +125,38 @@ int iniciarAplicacion(int argc, char *argv[])
 
 	button = gtk_builder_get_object (builder, "btn-regresarModificarLibro");
 	g_signal_connect (button, "clicked", G_CALLBACK (abrirVentanaLibrosDesdeModificarLibro), NULL);
+	
+	/* Callbacks de ventanas de prestamos */
 
+	button = gtk_builder_get_object (builder, "btn-agregarPrestamo");
+	g_signal_connect (button, "clicked", G_CALLBACK (abrirVentanaAgregarPrestamo), NULL);
 
+	button = gtk_builder_get_object (builder, "btn-regresarAgregarPrestamo");
+	g_signal_connect (button, "clicked", G_CALLBACK (abrirVentanaPrestamosDesdeAgregarPrestamo), NULL);
+
+	button = gtk_builder_get_object (builder, "btn-buscarPrestamo");
+	g_signal_connect (button, "clicked", G_CALLBACK (abrirVentanaBuscarPrestamo), NULL);
+
+	button = gtk_builder_get_object (builder, "btn-regresarBuscarPrestamo");
+	g_signal_connect (button, "clicked", G_CALLBACK (abrirVentanaPrestamosDesdeBuscarPrestamo), NULL);
+
+	button = gtk_builder_get_object (builder, "btn-eliminarPrestamo");
+	g_signal_connect (button, "clicked", G_CALLBACK (abrirVentanaEliminarPrestamo), NULL);
+
+	button = gtk_builder_get_object (builder, "btn-regresarEliminarPrestamo");
+	g_signal_connect (button, "clicked", G_CALLBACK (abrirVentanaPrestamosDesdeEliminarPrestamo), NULL);
+
+	button = gtk_builder_get_object (builder, "btn-modificarPrestamo");
+	g_signal_connect (button, "clicked", G_CALLBACK (abrirVentanaModificarPrestamo), NULL);
+
+	button = gtk_builder_get_object (builder, "btn-regresarModificarPrestamo");
+	g_signal_connect (button, "clicked", G_CALLBACK (abrirVentanaPrestamosDesdeModificarPrestamo), NULL);
 
 	gtk_main();
 
 	return 0;
 }
+
 /* Ventanas principales */
 
 void abrirVentanaUsuarios(GtkWidget *boton, gpointer data) {
@@ -153,6 +192,7 @@ void abrirVentanaPrincipalDesdePrestamos(GtkWidget *boton, gpointer data){
 }
 
 /* Ventanas de usuarios */
+
 void abrirVentanaAgregarUsuario(GtkWidget *boton, gpointer data){
 	gtk_widget_hide(GTK_WIDGET(ventanaUsuarios));
 	gtk_widget_show(GTK_WIDGET(ventanaAgregarUsuario));
@@ -234,3 +274,52 @@ void abrirVentanaLibrosDesdeModificarLibro(GtkWidget *boton, gpointer data){
 	gtk_widget_hide(GTK_WIDGET(ventanaModificarLibro));
 	gtk_widget_show(GTK_WIDGET(ventanaLibros));
 }
+
+/* Ventanas de prestamos */
+
+void abrirVentanaAgregarPrestamo(GtkWidget *boton, gpointer data){
+	gtk_widget_hide(GTK_WIDGET(ventanaPrestamos));
+	gtk_widget_show(GTK_WIDGET(ventanaAgregarPrestamo));
+}
+
+void abrirVentanaPrestamosDesdeAgregarPrestamo(GtkWidget *boton, gpointer data){
+	gtk_widget_hide(GTK_WIDGET(ventanaAgregarPrestamo));
+	gtk_widget_show(GTK_WIDGET(ventanaPrestamos));
+}
+
+void abrirVentanaBuscarPrestamo(GtkWidget *boton, gpointer data){
+	gtk_widget_hide(GTK_WIDGET(ventanaPrestamos));
+	gtk_widget_show(GTK_WIDGET(ventanaBuscarPrestamo));
+}
+
+void abrirVentanaPrestamosDesdeBuscarPrestamo(GtkWidget *boton, gpointer data){
+	gtk_widget_hide(GTK_WIDGET(ventanaBuscarPrestamo));
+	gtk_widget_show(GTK_WIDGET(ventanaPrestamos));
+}
+
+void abrirVentanaEliminarPrestamo(GtkWidget *boton, gpointer data){
+	gtk_widget_hide(GTK_WIDGET(ventanaPrestamos));
+	gtk_widget_show(GTK_WIDGET(ventanaEliminarPrestamo));
+}
+
+void abrirVentanaPrestamosDesdeEliminarPrestamo(GtkWidget *boton, gpointer data){
+	gtk_widget_hide(GTK_WIDGET(ventanaEliminarPrestamo));
+	gtk_widget_show(GTK_WIDGET(ventanaPrestamos));
+}
+
+void abrirVentanaModificarPrestamo(GtkWidget *boton, gpointer data){
+	gtk_widget_hide(GTK_WIDGET(ventanaPrestamos));
+	gtk_widget_show(GTK_WIDGET(ventanaModificarPrestamo));
+}
+
+void abrirVentanaPrestamosDesdeModificarPrestamo(GtkWidget *boton, gpointer data){
+	gtk_widget_hide(GTK_WIDGET(ventanaModificarPrestamo));
+	gtk_widget_show(GTK_WIDGET(ventanaPrestamos));
+}
+
+
+
+
+
+
+

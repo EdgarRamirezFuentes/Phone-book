@@ -15,6 +15,10 @@ extern GObject *ventanaAgregarLibro;
 extern GObject *ventanaBuscarLibro;
 extern GObject *ventanaEliminarLibro;
 extern GObject *ventanaModificarLibro;
+extern GObject *ventanaAgregarPrestamo;
+extern GObject *ventanaBuscarPrestamo;
+extern GObject *ventanaEliminarPrestamo;
+extern GObject *ventanaModificarPrestamo;
 
 
 int iniciarAplicacion(int argc, char *argv[]);
@@ -57,5 +61,19 @@ void abrirVentanaLibrosDesdeModificarLibro(GtkWidget *, gpointer);
 
 void abrirVentanaEliminarLibro(GtkWidget *, gpointer);
 void abrirVentanaLibrosDesdeEliminarLibro(GtkWidget *, gpointer);
+
+/* Ventanas de préstamos */
+
+void abrirVentanaAgregarPrestamo(GtkWidget *, gpointer);
+void abrirVentanaPrestamosDesdeAgregarPrestamo(GtkWidget *, gpointer);
+
+void abrirVentanaBuscarPrestamo(GtkWidget *, gpointer);
+void abrirVentanaPrestamosDesdeBuscarPrestamo(GtkWidget *, gpointer);
+
+void abrirVentanaEliminarPrestamo(GtkWidget *, gpointer);
+void abrirVentanaPrestamosDesdeEliminarPrestamo(GtkWidget *, gpointer);
+
+void abrirVentanaModificarPrestamo(GtkWidget *, gpointer);
+void abrirVentanaPrestamosDesdeModificarPrestamo(GtkWidget *, gpointer);
 
 #endif
