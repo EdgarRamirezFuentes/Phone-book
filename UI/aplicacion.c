@@ -134,13 +134,13 @@ AgregarContacto()
         fflush(stdin);
         puts("Ingresa el correo: ");
         EstablecerCorreo(nuevoContacto);
-        // agenda -> contactos = AgregarNuevoNodo (agenda -> contactos, nuevoContacto);
+        agenda -> contactos = AgregarNuevoNodo (agenda -> contactos, nuevoContacto);
         if(operacionExistosa == 0){
             system("clear");
             puts("Se agotó la memoria, por lo tanto no pudimos agregar más contactos.");
             sleep(2);
         }
-        puts(nuevoContacto -> nombre);
+        puts(agenda ->contactos->contacto->numeroCasa);
     }
 }
 

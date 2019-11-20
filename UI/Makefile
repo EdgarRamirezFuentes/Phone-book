@@ -1,5 +1,5 @@
 a.out: main.o aplicacion.o arbolAVL.o
-	gcc main.o aplicacion.o
+	gcc main.o aplicacion.o arbolAVL.o
 main.o: main.c
 	gcc -c main.c
 arbolAVL.o: arbolAVL.c
