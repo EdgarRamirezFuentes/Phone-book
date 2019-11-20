@@ -10,4 +10,10 @@ void iniciarAplicacion();
 void mostrarMenuPrincipal(char*);
 void seleccionarOpcion(char*);
 int validarOpcion(char*);
+void irHaciaOpcion(char*);
+void agregarContacto();
+void buscarContacto();
+void eliminarContacto();
+void modificarContacto();
+void mostrarContactos();
 #endif 
