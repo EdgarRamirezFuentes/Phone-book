@@ -8,7 +8,6 @@ AgregarNuevoNodo (struct Nodo *raiz, struct Contacto *contacto)
     {
       nuevoContacto = (struct Nodo *) malloc (sizeof (struct Nodo));
       if (nuevoContacto == NULL){
-          operacionExistosa = 0;
           return NULL;
       }
       nuevoContacto -> contacto = contacto;
@@ -28,6 +27,5 @@ AgregarNuevoNodo (struct Nodo *raiz, struct Contacto *contacto)
     {
       raiz -> derecha = AgregarNuevoNodo (raiz -> derecha, contacto);
     }
-    operacionExistosa = 1;
     return raiz;
 }

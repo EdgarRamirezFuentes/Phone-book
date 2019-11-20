@@ -1,5 +1,5 @@
 a.out: main.o aplicacion.o arbolAVL.o
-	gcc main.o aplicacion.o arbolAVL.o
+	gcc main.o aplicacion.o arbolAVL.o -Wall
 main.o: main.c
 	gcc -c main.c
 arbolAVL.o: arbolAVL.c
@@ -9,4 +9,4 @@ aplicacion.o: aplicacion.c
 run: a.out
 	./a.out
 clear:
-	rm a.out aplicacion.o main.o 
+	rm a.out aplicacion.o main.o arbolAVL.o

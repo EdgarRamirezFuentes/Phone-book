@@ -4,7 +4,7 @@
 #include <string.h> // Incluida para el uso de strcmp().
 #include <stdlib.h>
 
-    int operacionExistosa = 1; // Se encarga de decir si las operaciones del árbol AVL se hicieron de manera correcta.
+    //extern int operacionExistosa; // Se encarga de decir si las operaciones del árbol AVL se hicieron de manera correcta.
 
     struct Nodo{
         int factorDeBalance;

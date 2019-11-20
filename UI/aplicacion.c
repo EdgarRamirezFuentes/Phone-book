@@ -1,5 +1,4 @@
 #include "aplicacion.h"
-#include "arbolAVL.h"
 
 void 
 IniciarAplicacion()
@@ -38,7 +37,7 @@ void
 SeleccionarOpcion(char *opcion)
 {
     puts("\nIngrese el número de la operación que desea realizar: ");
-    *opcion = getchar();
+    scanf("%c", opcion);
 }
 
 int 
@@ -125,39 +124,35 @@ AgregarContacto()
     }else{
         puts("Ingresa el nombre del contacto:");
         EstablecerNombre(nuevoContacto);
-        fflush(stdin);
         puts("Ingresa el número de casa: ");
         EstablecerNumeroCasa(nuevoContacto);
-        fflush(stdin);
         puts("Ingresa el número de celular: ");
         EstablecerNumeroCelular(nuevoContacto);
-        fflush(stdin);
         puts("Ingresa el correo: ");
         EstablecerCorreo(nuevoContacto);
         agenda -> contactos = AgregarNuevoNodo (agenda -> contactos, nuevoContacto);
-        if(operacionExistosa == 0){
-            system("clear");
-            puts("Se agotó la memoria, por lo tanto no pudimos agregar más contactos.");
-            sleep(2);
-        }
         puts(agenda ->contactos->contacto->numeroCasa);
     }
 }
 
 void EstablecerNombre(struct Contacto *nuevoContacto){
-    gets(nuevoContacto -> nombre);
+    __fpurge(stdin);
+    fgets(nuevoContacto -> nombre, 100, stdin);
 }
 
 void EstablecerNumeroCasa(struct Contacto *nuevoContacto){
-    gets(nuevoContacto -> numeroCasa);
+    __fpurge(stdin);
+    fgets(nuevoContacto -> numeroCasa, 100, stdin);
 }
 
 void EstablecerNumeroCelular(struct Contacto *nuevoContacto){
-    gets(nuevoContacto -> numeroCelular);
+    __fpurge(stdin);
+    fgets(nuevoContacto -> numeroCelular, 100, stdin);
 }
 
 void EstablecerCorreo(struct Contacto *nuevoContacto){
-    gets(nuevoContacto -> correo);
+    __fpurge(stdin);
+    fgets(nuevoContacto -> correo, 100, stdin);
 }
 void 
 BuscarContacto()
