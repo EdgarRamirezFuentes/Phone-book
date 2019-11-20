@@ -1,13 +1,14 @@
 #include "arbolAVL.h"
 
 struct Nodo*
-AgregarNuevoNodo (struct Nodo *raiz, struct Contacto *contacto)
+AgregarNuevoNodo (struct Nodo *raiz, struct Contacto *contacto, char *operacionExitosa)
 {
     struct Nodo *nuevoContacto = NULL;
     if (raiz == NULL)
     {
       nuevoContacto = (struct Nodo *) malloc (sizeof (struct Nodo));
       if (nuevoContacto == NULL){
+          *operacionExitosa = 'f';
           return NULL;
       }
       nuevoContacto -> contacto = contacto;
@@ -21,11 +22,28 @@ AgregarNuevoNodo (struct Nodo *raiz, struct Contacto *contacto)
     }
     if(strcmp(contacto -> nombre, raiz -> contacto -> nombre) < 0)
     {
-      raiz -> izquierda = AgregarNuevoNodo (raiz -> izquierda, contacto);
+      raiz -> izquierda = AgregarNuevoNodo (raiz -> izquierda, contacto, operacionExitosa);
     }
     else
     {
-      raiz -> derecha = AgregarNuevoNodo (raiz -> derecha, contacto);
+      raiz -> derecha = AgregarNuevoNodo (raiz -> derecha, contacto, operacionExitosa);
     }
     return raiz;
+}
+
+void
+MostrarNodos (struct Nodo *raiz)
+{
+  if (raiz == NULL)
+    {
+      return;
+    }
+
+  MostrarNodos(raiz -> izquierda);
+  puts("\n************************************************************************\n");
+  printf("Nombre: \t%s\n", raiz -> contacto -> nombre);
+  printf("Número de casa: \t%s\n", raiz -> contacto -> numeroCasa);
+  printf("Número de celular: \t%s\n", raiz -> contacto -> numeroCelular);
+  printf("Correo: \t%s\n", raiz -> contacto -> correo);
+  puts("\n*************************************************************************\n");
 }

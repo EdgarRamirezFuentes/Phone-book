@@ -3,8 +3,7 @@
 
 #include <string.h> // Incluida para el uso de strcmp().
 #include <stdlib.h>
-
-    //extern int operacionExistosa; // Se encarga de decir si las operaciones del árbol AVL se hicieron de manera correcta.
+#include <stdio.h>
 
     struct Nodo{
         int factorDeBalance;
@@ -25,7 +24,8 @@
         struct Nodo *contactos;
     };
 
-    struct Nodo* AgregarNuevoNodo(struct Nodo *, struct Contacto *);
+    struct Nodo* AgregarNuevoNodo(struct Nodo *, struct Contacto *, char *);
+    void MostrarNodos(struct Nodo *);
     /*int BuscarNodo (struct Nodo*, char[]);
     struct Nodo* EliminarNodo(struct Nodo*, char[]);
     int CalcularAltura (struct Nodo*);

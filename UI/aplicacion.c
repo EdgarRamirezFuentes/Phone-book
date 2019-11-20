@@ -4,7 +4,9 @@ void
 IniciarAplicacion()
 {
     char opcion;
+    char operacionExitosa = 't';
     char *apuntadorOpcion = NULL;
+    char *apuntadorOperacionExitosa = NULL; 
     agenda = (struct Agenda*)malloc(sizeof(struct Agenda));
     if(agenda == NULL){
         system("clear");
@@ -13,8 +15,9 @@ IniciarAplicacion()
     }
     agenda -> cantidadContactos = 0;
     apuntadorOpcion = &opcion;
+    apuntadorOperacionExitosa = &operacionExitosa;
     MostrarMenuPrincipal(apuntadorOpcion);
-    IrHaciaOpcion(apuntadorOpcion);
+    IrHaciaOpcion(apuntadorOpcion, apuntadorOperacionExitosa);
 }
 
 void 
@@ -48,27 +51,27 @@ ValidarOpcion(char *opcion)
         case '1':
             system("clear");
             puts("Abriendo la sección Agregar contacto...");
-            sleep(2);
+            sleep(1);
         break;
         case '2':
             system("clear");
             puts("Abriendo la sección Buscar contacto...");
-            sleep(2);
+            sleep(1);
         break;
         case '3':
             system("clear");
             puts("Abriendo la sección Eliminar contacto...");
-            sleep(2);
+            sleep(1);
         break;
         case '4':
             system("clear");
             puts("Abriendo la sección Modificar contacto...");
-            sleep(2);
+            sleep(1);
         break;
         case '5':
             system("clear");
             puts("Abriendo la sección Mostrar contacto...");
-            sleep(2);
+            sleep(1);
         break;
         default:
         system("clear");
@@ -81,24 +84,24 @@ ValidarOpcion(char *opcion)
 }
 
 void 
-IrHaciaOpcion(char *opcion)
+IrHaciaOpcion(char *opcion, char *operacionExitosa)
 {
     switch (*opcion)
     {
         case '1':
-            AgregarContacto();
+            AgregarContacto(operacionExitosa);
         break;
         case '2':
-            BuscarContacto();
+            BuscarContacto(operacionExitosa);
         break;
         case '3':
-            EliminarContacto();
+            EliminarContacto(operacionExitosa);
         break;
         case '4':
-            ModificarContacto();
+            ModificarContacto(operacionExitosa);
         break;
         case '5':
-            MostrarContactos();
+            MostrarContactos(operacionExitosa);
         break;
         default:
         system("clear");
@@ -109,7 +112,7 @@ IrHaciaOpcion(char *opcion)
 }
 
 void 
-AgregarContacto()
+AgregarContacto( char *operacionExitosa)
 {
     system("clear");
     fflush(stdin);
@@ -130,8 +133,15 @@ AgregarContacto()
         EstablecerNumeroCelular(nuevoContacto);
         puts("Ingresa el correo: ");
         EstablecerCorreo(nuevoContacto);
-        agenda -> contactos = AgregarNuevoNodo (agenda -> contactos, nuevoContacto);
-        puts(agenda ->contactos->contacto->numeroCasa);
+        agenda -> contactos = AgregarNuevoNodo (agenda -> contactos, nuevoContacto, operacionExitosa);
+        if(*operacionExitosa == 't'){
+            agenda -> cantidadContactos++;
+            system("clear");
+            puts("Contacto agregado correctamente.");
+        }else{
+            puts("Se agotó la memoria, por lo tanto no se pueden agregar más contactos");
+            *operacionExitosa = 't'; 
+        }
     }
 }
 
@@ -155,19 +165,19 @@ void EstablecerCorreo(struct Contacto *nuevoContacto){
     fgets(nuevoContacto -> correo, 100, stdin);
 }
 void 
-BuscarContacto()
+BuscarContacto(char *operacionExitosa)
 {
 
 }
 
 void 
-EliminarContacto()
+EliminarContacto(char *operacionExitosa)
 {
 
 }
 
 void 
-ModificarContacto()
+ModificarContacto(char *operacionExitosa)
 {
 
 }
@@ -175,5 +185,11 @@ ModificarContacto()
 void 
 MostrarContactos()
 {
-
+    system("clear");
+    puts("Mostrar contactos\n\n");
+    if(agenda -> cantidadContactos == 0){
+        puts("No existen contactos en la agenda.");
+        return;
+    }
+    MostrarNodos(agenda -> contactos);
 }
