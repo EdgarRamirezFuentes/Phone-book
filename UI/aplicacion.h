@@ -5,15 +5,22 @@
 #include <stdio.h>
 #include <stdlib.h> // Incluida para utilizar system().
 #include <unistd.h> // Incluida para utilizar sleep().
+#include "arbolAVL.h"
 
-void iniciarAplicacion();
-void mostrarMenuPrincipal(char*);
-void seleccionarOpcion(char*);
-int validarOpcion(char*);
-void irHaciaOpcion(char*);
-void agregarContacto();
-void buscarContacto();
-void eliminarContacto();
-void modificarContacto();
-void mostrarContactos();
+struct Agenda *agenda;
+
+void IniciarAplicacion();
+void MostrarMenuPrincipal(char *);
+void SeleccionarOpcion(char *);
+int ValidarOpcion(char *);
+void IrHaciaOpcion(char *);
+void AgregarContacto();
+void BuscarContacto();
+void EliminarContacto();
+void ModificarContacto();
+void MostrarContactos();
+void EstablecerNombre(struct Contacto *);
+void EstablecerNumeroCasa(struct Contacto *);
+void EstablecerNumeroCelular(struct Contacto *);
+void EstablecerCorreo(struct Contacto *);
 #endif 

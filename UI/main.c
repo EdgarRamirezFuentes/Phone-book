@@ -1,5 +1,5 @@
 #include "aplicacion.h"
 int main(void){
-	iniciarAplicacion();
+	IniciarAplicacion();
 	return 0;
 }

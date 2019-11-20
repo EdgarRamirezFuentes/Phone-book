@@ -1,15 +1,25 @@
 #include "aplicacion.h"
+#include "arbolAVL.h"
 
-void iniciarAplicacion()
+void 
+IniciarAplicacion()
 {
     char opcion;
     char *apuntadorOpcion = NULL;
+    agenda = (struct Agenda*)malloc(sizeof(struct Agenda));
+    if(agenda == NULL){
+        system("clear");
+        puts("No hay memoria para crear una agenda.");
+        exit(-1);
+    }
+    agenda -> cantidadContactos = 0;
     apuntadorOpcion = &opcion;
-    mostrarMenuPrincipal(apuntadorOpcion);
-    irHaciaOpcion(opcion);
+    MostrarMenuPrincipal(apuntadorOpcion);
+    IrHaciaOpcion(apuntadorOpcion);
 }
 
-void mostrarMenuPrincipal(char *opcion)
+void 
+MostrarMenuPrincipal(char *opcion)
 {
     do
     {
@@ -19,18 +29,21 @@ void mostrarMenuPrincipal(char *opcion)
             fflush(stdin);
             puts("Sistema de gestión de contactos telefónicos\n\n");
             puts("¿Qué operación desea realizar?\n1.- Agregar contacto.\n2.- Buscar contacto.\n3. Eliminar contacto.\n4. Modificar contacto.\n5.- Mostrar contactos");
-            seleccionarOpcion(opcion);
+            SeleccionarOpcion(opcion);
         }while(isdigit(*opcion) == 0);
-    } while (validarOpcion(opcion) == 0);
+    } while (ValidarOpcion(opcion) == 0);
 }
 
-void seleccionarOpcion(char *opcion)
+void 
+SeleccionarOpcion(char *opcion)
 {
     puts("\nIngrese el número de la operación que desea realizar: ");
     *opcion = getchar();
 }
 
-int validarOpcion(char *opcion){
+int 
+ValidarOpcion(char *opcion)
+{
     switch (*opcion)
     {
         case '1':
@@ -68,23 +81,25 @@ int validarOpcion(char *opcion){
     return 1;
 }
 
-void irHaciaOpcion(char *opcion){
+void 
+IrHaciaOpcion(char *opcion)
+{
     switch (*opcion)
     {
         case '1':
-            agregarContacto();
+            AgregarContacto();
         break;
         case '2':
-            buscarContacto();
+            BuscarContacto();
         break;
         case '3':
-            eliminarContacto();
+            EliminarContacto();
         break;
         case '4':
-            modificarContacto();
+            ModificarContacto();
         break;
         case '5':
-            mostrarContactos();
+            MostrarContactos();
         break;
         default:
         system("clear");
@@ -94,22 +109,76 @@ void irHaciaOpcion(char *opcion){
     }
 }
 
-void agregarContacto(){
+void 
+AgregarContacto()
+{
+    system("clear");
+    fflush(stdin);
+    puts("Agregar contacto\n\n");
+    struct Contacto *nuevoContacto = NULL;
+    nuevoContacto = (struct Contacto*)malloc(sizeof(struct Contacto));
+    if(nuevoContacto == NULL)
+    {
+        system("clear");
+        puts("Se agotó la memoria, por lo tanto no se pueden agregar más contactos.");
+        sleep(2);
+    }else{
+        puts("Ingresa el nombre del contacto:");
+        EstablecerNombre(nuevoContacto);
+        fflush(stdin);
+        puts("Ingresa el número de casa: ");
+        EstablecerNumeroCasa(nuevoContacto);
+        fflush(stdin);
+        puts("Ingresa el número de celular: ");
+        EstablecerNumeroCelular(nuevoContacto);
+        fflush(stdin);
+        puts("Ingresa el correo: ");
+        EstablecerCorreo(nuevoContacto);
+        // agenda -> contactos = AgregarNuevoNodo (agenda -> contactos, nuevoContacto);
+        if(operacionExistosa == 0){
+            system("clear");
+            puts("Se agotó la memoria, por lo tanto no pudimos agregar más contactos.");
+            sleep(2);
+        }
+        puts(nuevoContacto -> nombre);
+    }
+}
+
+void EstablecerNombre(struct Contacto *nuevoContacto){
+    gets(nuevoContacto -> nombre);
+}
+
+void EstablecerNumeroCasa(struct Contacto *nuevoContacto){
+    gets(nuevoContacto -> numeroCasa);
+}
+
+void EstablecerNumeroCelular(struct Contacto *nuevoContacto){
+    gets(nuevoContacto -> numeroCelular);
+}
+
+void EstablecerCorreo(struct Contacto *nuevoContacto){
+    gets(nuevoContacto -> correo);
+}
+void 
+BuscarContacto()
+{
 
 }
 
-void buscarContacto(){
+void 
+EliminarContacto()
+{
 
 }
 
-void eliminarContacto(){
+void 
+ModificarContacto()
+{
 
 }
 
-void modificarContacto(){
-
-}
-
-void mostrarContactos(){
+void 
+MostrarContactos()
+{
 
 }
