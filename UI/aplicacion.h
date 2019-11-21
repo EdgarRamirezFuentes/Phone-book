@@ -8,6 +8,7 @@
 #include "arbolAVL.h"
 
 struct Agenda *agenda;
+struct NodoLista *lista;
 
 void IniciarAplicacion();
 void MostrarMenuPrincipal(char *);
@@ -32,4 +33,5 @@ int ValidarOpcionModificarContacto(char *);
 void ModificarTelefonoCasa(struct Nodo *);
 void ModificarTelefonoCelular(struct Nodo *);
 void ModificarCorreo(struct Nodo *);
+void BFS(struct Nodo *);
 #endif 

@@ -4,12 +4,17 @@
 #include <string.h> // Incluida para el uso de strcmp().
 #include <stdlib.h>
 #include <stdio.h>
-
+#include "pila.h"
+    
     struct Nodo{
         int factorDeBalance;
         struct Contacto *contacto;
         struct Nodo *izquierda;
         struct Nodo *derecha;
+    };
+    struct NodoPila {
+	    struct Nodo contacto;
+	    struct NodoPila *siguiente;
     };
     
     struct Contacto{
@@ -24,11 +29,19 @@
         struct Nodo *contactos;
     };
 
+    struct Pila *pila;
+    char operacionExitosa;
+
     struct Nodo* AgregarNuevoNodo(struct Nodo *, struct Contacto *, char *);
     void MostrarNodos(struct Nodo *);
     struct Nodo* BuscarNodo (struct Nodo *, char []);
+    int CalcularFactorDeBalance(struct Nodo *);
+    int CalcularAltura (struct Nodo *);
+    struct Nodo* Rotar(struct Nodo *, struct Contacto *);
+    struct Nodo* RotacionIzquierda(struct Nodo *);
+    struct Nodo* RotacionDerecha(struct Nodo *);
+    struct Nodo* RotacionDerechaIzquierda(struct Nodo *);
+    struct Nodo* RotacionIzquierdaDerecha(struct Nodo *);
     //struct Nodo* EliminarNodo(struct Nodo*, char[]);
-    //int CalcularAltura (struct Nodo*);
-    //int CalcularFactorDeBalance (struct Nodo*);
 
 #endif

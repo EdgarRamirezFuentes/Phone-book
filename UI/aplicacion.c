@@ -4,13 +4,19 @@ void
 IniciarAplicacion()
 {
     char opcion;
-    char operacionExitosa = 't';
+    operacionExitosa = 't';
     char *apuntadorOpcion = NULL;
     char *apuntadorOperacionExitosa = NULL; 
     agenda = (struct Agenda*)malloc(sizeof(struct Agenda));
+    pila = (struct Pila*)malloc(sizeof(struct Pila));
     if(agenda == NULL){
         system("clear");
         puts("No hay memoria para crear una agenda.");
+        exit(-1);
+    }
+    if(pila == NULL){
+        system("clear");
+        puts("No hay memoria para crear una pila.");
         exit(-1);
     }
     agenda -> cantidadContactos = 0;
@@ -122,6 +128,7 @@ AgregarContacto( char *operacionExitosa)
 {
     system("clear");
     __fpurge(stdin);
+    pila -> contactos = NULL;
     puts("Agregar contacto\n\n");
     struct Nodo *busqueda = NULL;
     struct Contacto *nuevoContacto = NULL;
@@ -354,7 +361,28 @@ MostrarContactos()
         return;
     }
     MostrarNodos(agenda -> contactos);
+    /*puts("Orden en BFS");
+    BFS(agenda -> contactos);*/
 }
+
+void
+BFS(struct Nodo *nodoActual){
+	printf("%s %d", nodoActual -> contacto -> nombre, nodoActual -> factorDeBalance);
+	if(nodoActual -> izquierda != NULL){
+		lista = AgregarNodoAlFinal(lista, nodoActual -> izquierda);
+	}	
+	if(nodoActual -> derecha != NULL){
+		lista = AgregarNodoAlFinal(lista, nodoActual -> derecha);
+	}
+	if(lista == NULL){
+		printf("\n");
+		return;
+	}
+	struct Nodo *nuevaRaiz = lista -> contacto;
+	lista = EliminarNodoAlInicio(lista);
+	BFS(nuevaRaiz);
+}
+
 
 int ReiniciarSistema(char *opcion){
     do
@@ -384,5 +412,4 @@ int ValidarOpcionReiniciarSistema(char *opcion){
         break;
         return 1;
     }
-
 }
