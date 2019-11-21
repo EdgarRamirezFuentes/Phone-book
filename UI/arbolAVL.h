@@ -26,7 +26,7 @@
 
     struct Nodo* AgregarNuevoNodo(struct Nodo *, struct Contacto *, char *);
     void MostrarNodos(struct Nodo *);
-    int BuscarNodo (struct Nodo *, char []);
+    struct Nodo* BuscarNodo (struct Nodo *, char []);
     //struct Nodo* EliminarNodo(struct Nodo*, char[]);
     //int CalcularAltura (struct Nodo*);
     //int CalcularFactorDeBalance (struct Nodo*);

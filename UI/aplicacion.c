@@ -33,6 +33,7 @@ MostrarMenuPrincipal(char *opcion)
             system("clear");
             __fpurge(stdin);
             puts("Sistema de gestión de contactos telefónicos\n\n");
+            printf("Contactos registrados: %d.\n\n\n", agenda -> cantidadContactos);
             puts("¿Qué operación desea realizar?\n1.- Agregar contacto.\n2.- Buscar contacto.\n3.- Eliminar contacto.\n4.- Modificar contacto.\n5.- Mostrar contactos\n6.- Salir");
             SeleccionarOpcion(opcion);
         }while(isdigit(*opcion) == 0);
@@ -122,6 +123,7 @@ AgregarContacto( char *operacionExitosa)
     system("clear");
     __fpurge(stdin);
     puts("Agregar contacto\n\n");
+    struct Nodo *busqueda = NULL;
     struct Contacto *nuevoContacto = NULL;
     nuevoContacto = (struct Contacto*)malloc(sizeof(struct Contacto));
     if(nuevoContacto == NULL)
@@ -138,11 +140,23 @@ AgregarContacto( char *operacionExitosa)
         EstablecerNumeroCelular(nuevoContacto);
         puts("Ingresa el correo: ");
         EstablecerCorreo(nuevoContacto);
+        busqueda = BuscarNodo(agenda -> contactos, nuevoContacto -> nombre);
+        if(busqueda != NULL){
+            system("clear");
+            puts("Este contacto ya está registrado en la agenda");
+            puts("\n************************************************************************\n");
+            printf("Nombre: \t%s\n", busqueda -> contacto -> nombre);
+            printf("Número de casa: \t%s\n", busqueda -> contacto -> numeroCasa);
+            printf("Número de celular: \t%s\n", busqueda -> contacto -> numeroCelular);
+            printf("Correo: \t%s\n", busqueda -> contacto -> correo);
+            puts("\n*************************************************************************\n");
+            return;
+        }
         agenda -> contactos = AgregarNuevoNodo (agenda -> contactos, nuevoContacto, operacionExitosa);
         if(*operacionExitosa == 't'){
-            agenda -> cantidadContactos++;
+            agenda -> cantidadContactos = agenda -> cantidadContactos + 1;
             system("clear");
-            puts("Contacto agregado correctamente.");
+            puts("Contacto agregado correctamente.\n\n");
         }else{
             puts("Se agotó la memoria, por lo tanto no se pueden agregar más contactos");
             *operacionExitosa = 't'; 
@@ -201,12 +215,20 @@ BuscarContacto()
     fgets(nombre,100, stdin);
     char *cadena = NULL;
     cadena = &nombre;
+    struct Nodo *busqueda = NULL;
     ConvertirAMayus(cadena);
-    if(BuscarNodo(agenda -> contactos, nombre) == 0){
+    busqueda =BuscarNodo(agenda -> contactos, nombre);
+    if(busqueda == NULL){
         system("clear");
         puts("El contacto no está registrado en la agenda");
         return;
     }
+    puts("\n************************************************************************\n");
+    printf("Nombre: \t%s\n", busqueda -> contacto -> nombre);
+    printf("Número de casa: \t%s\n", busqueda -> contacto -> numeroCasa);
+    printf("Número de celular: \t%s\n", busqueda -> contacto -> numeroCelular);
+    printf("Correo: \t%s\n", busqueda -> contacto -> correo);
+    puts("\n*************************************************************************\n");
 }
 
 void 

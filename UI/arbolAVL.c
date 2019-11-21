@@ -35,9 +35,9 @@ void
 MostrarNodos (struct Nodo *raiz)
 {
   if (raiz == NULL)
-    {
-      return;
-    }
+  {
+    return;
+  }
 
   MostrarNodos(raiz -> izquierda);
   puts("\n************************************************************************\n");
@@ -49,22 +49,16 @@ MostrarNodos (struct Nodo *raiz)
   MostrarNodos(raiz -> derecha);
 }
 
-int
+struct Nodo *
 BuscarNodo (struct Nodo *raiz, char contacto[])
 {
   if (raiz == NULL)
   {
-    return 0;
+    return NULL;
   }
   if (strcmp(raiz -> contacto -> nombre , contacto) == 0)
   {
-    puts("\n************************************************************************\n");
-    printf("Nombre: \t%s\n", raiz -> contacto -> nombre);
-    printf("Número de casa: \t%s\n", raiz -> contacto -> numeroCasa);
-    printf("Número de celular: \t%s\n", raiz -> contacto -> numeroCelular);
-    printf("Correo: \t%s\n", raiz -> contacto -> correo);
-    puts("\n*************************************************************************\n");
-    return 1;
+    return raiz;
   }
   if (strcmp(contacto, raiz -> contacto -> nombre) < 0)
   {
