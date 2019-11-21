@@ -7,7 +7,7 @@ AgregarNuevoNodo (struct Nodo *raiz, struct Contacto *contacto, char *operacionE
     if (raiz == NULL)
     {
       nuevoContacto = (struct Nodo *) malloc (sizeof (struct Nodo));
-      if (nuevoContacto == NULL){
+      if(nuevoContacto == NULL){
           *operacionExitosa = 'f';
           return NULL;
       }

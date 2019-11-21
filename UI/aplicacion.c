@@ -110,7 +110,7 @@ IrHaciaOpcion(char *opcion, char *operacionExitosa)
             exit(1);
         break;
         default:
-        system("clear");
+            system("clear");
             puts("Se detectó un error, se detendrá la ejecución del programa.");
             exit (-1);
         break;
@@ -144,12 +144,7 @@ AgregarContacto( char *operacionExitosa)
         if(busqueda != NULL){
             system("clear");
             puts("Este contacto ya está registrado en la agenda");
-            puts("\n************************************************************************\n");
-            printf("Nombre: \t%s\n", busqueda -> contacto -> nombre);
-            printf("Número de casa: \t%s\n", busqueda -> contacto -> numeroCasa);
-            printf("Número de celular: \t%s\n", busqueda -> contacto -> numeroCelular);
-            printf("Correo: \t%s\n", busqueda -> contacto -> correo);
-            puts("\n*************************************************************************\n");
+            ImprimirContacto(busqueda);
             return;
         }
         agenda -> contactos = AgregarNuevoNodo (agenda -> contactos, nuevoContacto, operacionExitosa);
@@ -210,24 +205,28 @@ void
 BuscarContacto()
 {
     char nombre[100];
-    puts("Ingresa el contacto a buscar: ");
+    puts("Ingresa el nombre del contacto a buscar: ");
     __fpurge(stdin);
     fgets(nombre,100, stdin);
     char *cadena = NULL;
     cadena = &nombre;
-    struct Nodo *busqueda = NULL;
     ConvertirAMayus(cadena);
+    struct Nodo *busqueda = NULL;
     busqueda =BuscarNodo(agenda -> contactos, nombre);
     if(busqueda == NULL){
         system("clear");
         puts("El contacto no está registrado en la agenda");
         return;
     }
+    ImprimirContacto(busqueda);
+}
+
+void ImprimirContacto(struct Nodo *busqueda){
     puts("\n************************************************************************\n");
     printf("Nombre: \t%s\n", busqueda -> contacto -> nombre);
     printf("Número de casa: \t%s\n", busqueda -> contacto -> numeroCasa);
     printf("Número de celular: \t%s\n", busqueda -> contacto -> numeroCelular);
-    printf("Correo: \t%s\n", busqueda -> contacto -> correo);
+    printf("Correo electrónico: \t%s\n", busqueda -> contacto -> correo);
     puts("\n*************************************************************************\n");
 }
 
@@ -238,9 +237,111 @@ EliminarContacto(char *operacionExitosa)
 }
 
 void 
-ModificarContacto(char *operacionExitosa)
+ModificarContacto(char *opcion)
 {
+    char nombre[100];
+    puts("Ingresa el nombre del contacto a modificar: ");
+    __fpurge(stdin);
+    fgets(nombre,100, stdin);
+    char *cadena = NULL;
+    cadena = &nombre;
+    ConvertirAMayus(cadena);
+    struct Nodo *busqueda = NULL;
+    busqueda = BuscarNodo(agenda -> contactos, nombre);
+    if(busqueda == NULL)
+    {
+        system("clear");
+        puts("El contacto no está registrado en la agenda");
+        return;
+    }
+    do
+    {
+        system("clear");
+        puts("Contacto encontrado:");
+        ImprimirContacto(busqueda);
+        puts("¿Qué dato deseas modificar?\n1.- Número de casa\n2.- Número de celular\n3.- Correo electrónico");
+        SeleccionarOpcion(opcion);
+    }while(ValidarOpcionModificarContacto(opcion) == 0);
+    RealizarModifcacion(opcion, busqueda);
+}
 
+void ModificarTelefonoCasa(struct Nodo *busqueda){
+    system("clear");
+    __fpurge(stdin);
+    printf("Número telefónico de casa actual: %s\n\n", busqueda -> contacto -> numeroCasa);
+    puts("Ingresa el nuevonúmero telefónico de casa: ");
+    fgets(busqueda -> contacto -> numeroCasa, 100, stdin);
+    system("clear");
+    puts("Número telefónico de casa actualizado correctamente.\n\n");
+    ImprimirContacto(busqueda);
+}
+
+void ModificarTelefonoCelular(struct Nodo *busqueda){
+    system("clear");
+    __fpurge(stdin);
+    printf("Número telefónico de celular actual: %s\n\n", busqueda -> contacto -> numeroCelular);
+    puts("Ingresa el nuevo número telefónico de celular: ");
+    fgets(busqueda -> contacto -> numeroCelular, 100, stdin);
+    system("clear");
+    puts("Número telefónico de celular actualizado correctamente.\n\n");
+    ImprimirContacto(busqueda);
+}
+
+void ModificarCorreo(struct Nodo *busqueda){
+    system("clear");
+    __fpurge(stdin);
+    printf("Correo electrónico actual: %s\n\n", busqueda -> contacto -> correo);
+    puts("Ingresa el nuevo correo electrónico: ");
+    fgets(busqueda -> contacto -> correo, 100, stdin);
+    system("clear");
+    puts("Correo electrónico actualizado correctamente.\n\n");
+    ImprimirContacto(busqueda);
+}
+
+void RealizarModifcacion(char *opcion, struct Nodo *busqueda){
+    switch (*opcion)
+    {
+        case '1':
+            ModificarTelefonoCasa(busqueda);
+        break;
+        case '2':
+            ModificarTelefonoCelular(busqueda);
+        break;
+        case '3':
+            ModificarCorreo(busqueda);
+        break;
+        default:
+            system("clear");
+            puts("Se detectó un error, se detendrá la ejecución del programa.");
+            exit (-1);
+        break;
+    }
+}
+
+int 
+ValidarOpcionModificarContacto(char *opcion)
+{
+    switch (*opcion)
+    {
+        case '1':
+            system("clear");
+            return 1;
+        break;
+        case '2':
+            system("clear");
+            return 1;
+        break;
+        case '3':
+            system("clear");
+            return 1;
+        break;
+        default:
+            system("clear");
+            puts("Ingrese una opción válida.");
+            return 0;
+        break;
+    }
+    return 1;
 }
 
 void 
