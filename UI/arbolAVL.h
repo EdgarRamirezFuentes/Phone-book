@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "pila.h"
+#include "aplicacion.h"
     
     struct Nodo{
         int factorDeBalance;
@@ -32,7 +33,7 @@
     struct Pila *pila;
     char operacionExitosa;
 
-    struct Nodo* AgregarNuevoNodo(struct Nodo *, struct Contacto *, char *);
+    struct Nodo* AgregarNuevoNodo(struct Nodo *, struct Contacto *);
     void MostrarNodos(struct Nodo *);
     struct Nodo* BuscarNodo (struct Nodo *, char []);
     int CalcularFactorDeBalance(struct Nodo *);
@@ -42,6 +43,15 @@
     struct Nodo* RotacionDerecha(struct Nodo *);
     struct Nodo* RotacionDerechaIzquierda(struct Nodo *);
     struct Nodo* RotacionIzquierdaDerecha(struct Nodo *);
+    int EsHoja(struct Nodo*);
+    int SoloHijoIzquierdo(struct Nodo*);
+    int SoloHijoDerecho(struct Nodo*);
+    int TieneDosHijos(struct Nodo*);
+    int EsRaiz(struct Nodo*);
+    struct Nodo* MasPequenioDeLosGrandes(struct Nodo *);
+    void BalancearArbol(struct Nodo *);
+    int ObtenerRecorrido(struct Nodo *, struct Nodo *);
+    void ChecarBalanceo();
     //struct Nodo* EliminarNodo(struct Nodo*, char[]);
 
 #endif

@@ -8,10 +8,8 @@ AgregarNodoAlInicio(struct NodoLista *nodo, struct Nodo* contacto){ // Complejid
 		if(nodo != NULL){
 			nuevoNodo -> siguiente = nodo; // O(1);
 		}
-		operacionExitosa = 't';
 		return nuevoNodo; // O(1)
 	}
-	operacionExitosa = 'f';
 	return nodo; // O(1)
 }
 
@@ -41,9 +39,7 @@ EliminarNodoAlInicio(struct NodoLista *nodo){ // Complejidad O(1)
 		tmp = nodo; //O(1) 
 		nodo = nodo -> siguiente; //O(1)
 		free(tmp); // O(1)
-		operacionExitosa = 't';
 		return nodo; // O(1)
 	}
-	operacionExitosa = 'f';
 	return nodo; // O(1)
 }

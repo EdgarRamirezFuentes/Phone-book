@@ -4,9 +4,7 @@ void
 IniciarAplicacion()
 {
     char opcion;
-    operacionExitosa = 't';
     char *apuntadorOpcion = NULL;
-    char *apuntadorOperacionExitosa = NULL; 
     agenda = (struct Agenda*)malloc(sizeof(struct Agenda));
     pila = (struct Pila*)malloc(sizeof(struct Pila));
     if(agenda == NULL){
@@ -21,11 +19,10 @@ IniciarAplicacion()
     }
     agenda -> cantidadContactos = 0;
     apuntadorOpcion = &opcion;
-    apuntadorOperacionExitosa = &operacionExitosa;
     do
     {
         MostrarMenuPrincipal(apuntadorOpcion);
-        IrHaciaOpcion(apuntadorOpcion, apuntadorOperacionExitosa);
+        IrHaciaOpcion(apuntadorOpcion);
     }while(ReiniciarSistema(apuntadorOpcion) == 1);
 }
 
@@ -92,21 +89,21 @@ ValidarOpcionMenuPrincipal(char *opcion)
 }
 
 void 
-IrHaciaOpcion(char *opcion, char *operacionExitosa)
+IrHaciaOpcion(char *opcion)
 {
     switch (*opcion)
     {
         case '1':
-            AgregarContacto(operacionExitosa);
+            AgregarContacto();
         break;
         case '2':
             BuscarContacto();
         break;
         case '3':
-            EliminarContacto(operacionExitosa);
+            EliminarContacto();
         break;
         case '4':
-            ModificarContacto(operacionExitosa);
+            ModificarContacto(opcion);
         break;
         case '5':
             MostrarContactos();
@@ -124,7 +121,7 @@ IrHaciaOpcion(char *opcion, char *operacionExitosa)
 }
 
 void 
-AgregarContacto( char *operacionExitosa)
+AgregarContacto()
 {
     system("clear");
     __fpurge(stdin);
@@ -154,15 +151,15 @@ AgregarContacto( char *operacionExitosa)
             ImprimirContacto(busqueda);
             return;
         }
-        agenda -> contactos = AgregarNuevoNodo (agenda -> contactos, nuevoContacto, operacionExitosa);
-        if(*operacionExitosa == 't'){
-            agenda -> cantidadContactos = agenda -> cantidadContactos + 1;
-            system("clear");
-            puts("Contacto agregado correctamente.\n\n");
-        }else{
-            puts("Se agotó la memoria, por lo tanto no se pueden agregar más contactos");
-            *operacionExitosa = 't'; 
+        agenda -> contactos = AgregarNuevoNodo (agenda -> contactos, nuevoContacto);
+        agenda -> cantidadContactos = agenda -> cantidadContactos + 1;
+        system("clear");
+        busqueda = BuscarNodo(agenda -> contactos, nuevoContacto -> nombre);
+        if(busqueda)
+        {
+            BalancearArbol(busqueda);
         }
+        puts("Contacto agregado correctamente.\n\n");
     }
 }
 
@@ -238,7 +235,7 @@ void ImprimirContacto(struct Nodo *busqueda){
 }
 
 void 
-EliminarContacto(char *operacionExitosa)
+EliminarContacto()
 {
 
 }
