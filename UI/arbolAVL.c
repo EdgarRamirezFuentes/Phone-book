@@ -44,12 +44,18 @@ void BalancearArbol(struct Nodo *nodoDePartida)
   {
     return;
   }
-  if(banderaPila == 2){
-        return;
+  if(banderaPila == 2)
+  {
+    if(CalcularFactorDeBalance(nodoDePartida) > 1 || CalcularFactorDeBalance(nodoDePartida) < -1)
+    {
+      agenda -> contactos = Rotar(nodoDePartida);
+    }
   }
   ChecarBalanceo();
 }
-void ChecarBalanceo()
+
+void 
+ChecarBalanceo()
 {
   struct Nodo *nodoActual = NULL;
   struct Nodo *padreNodoActual = NULL;
@@ -229,7 +235,8 @@ CalcularAltura (struct Nodo *raiz)
     return alturaDerecha + 1;
 }
 
-int EsHoja(struct Nodo *nodoActual)
+int 
+EsHoja(struct Nodo *nodoActual)
 {
   if(nodoActual -> derecha == NULL && nodoActual -> izquierda == NULL)
   {
@@ -237,7 +244,8 @@ int EsHoja(struct Nodo *nodoActual)
   }
   return 0;
 }
-int SoloHijoIzquierdo(struct Nodo *nodoActual)
+int 
+SoloHijoIzquierdo(struct Nodo *nodoActual)
 { 
   if(nodoActual -> izquierda != NULL && nodoActual -> derecha == NULL)
   {
@@ -246,7 +254,8 @@ int SoloHijoIzquierdo(struct Nodo *nodoActual)
   return 0;
 }
 
-int SoloHijoDerecho(struct Nodo *nodoActual)
+int 
+SoloHijoDerecho(struct Nodo *nodoActual)
 { 
   if(nodoActual -> izquierda == NULL && nodoActual -> derecha != NULL)
   {
@@ -255,7 +264,8 @@ int SoloHijoDerecho(struct Nodo *nodoActual)
   return 0;
 }
 
-int TieneDosHijos(struct Nodo *nodoActual)
+int 
+TieneDosHijos(struct Nodo *nodoActual)
 { 
   if(nodoActual -> izquierda != NULL && nodoActual -> derecha != NULL)
   {
@@ -263,7 +273,8 @@ int TieneDosHijos(struct Nodo *nodoActual)
   }
   return 0;
 }
-int EsRaiz(struct Nodo *nodoActual)
+int 
+EsRaiz(struct Nodo *nodoActual)
 {
   if(nodoActual == agenda -> contactos)
   {
@@ -288,7 +299,8 @@ MasPequenioDeLosGrandes(struct Nodo *nodoActual){
   }
 }
 
-int ObtenerRecorrido(struct Nodo *nodoActual, struct Nodo *nodoABuscar) // 0 es nulo - 1 hay por lo menos un dato en la pila - 2 es raiz.
+int 
+ObtenerRecorrido(struct Nodo *nodoActual, struct Nodo *nodoABuscar) // 0 es nulo - 1 hay por lo menos un dato en la pila - 2 es raiz.
 //NodoActual es la raiz de la agenda al inicio de la función.
 {
   if(nodoABuscar == NULL){
@@ -317,15 +329,128 @@ int ObtenerRecorrido(struct Nodo *nodoActual, struct Nodo *nodoABuscar) // 0 es 
 
 }
 
-struct Nodo*
-EliminarNodo(struct Nodo *nodoActual){
-  struct Nodo *masPequenioDeLosGrandes = NULL;
-  if(nodoActual == NULL)
+struct Nodo* EliminarNodo(struct Nodo *raiz, struct Nodo *nodoAEliminar){
+	if(nodoAEliminar != NULL){
+		if(nodoAEliminar != raiz){
+			struct Nodo *padre = BuscarPadre(raiz, nodoAEliminar);
+			// No hay nodos más grandes que el nodo a eliminar.
+			if(EsHoja(nodoAEliminar) == 1){
+				if(strcmp( nodoAEliminar -> contacto -> nombre, padre -> contacto -> nombre) > 0){
+					free(nodoAEliminar);
+					padre -> derecha = NULL;
+					return raiz;
+				}
+				free(nodoAEliminar);
+				padre -> izquierda = NULL;
+				return raiz;
+			}
+			if(SoloHijoIzquierdo(nodoAEliminar)){
+				if(strcmp( nodoAEliminar -> contacto -> nombre, padre -> contacto -> nombre) > 0){
+					padre -> derecha = nodoAEliminar -> izquierda; 
+					free(nodoAEliminar);
+					return raiz;
+				}
+				padre -> izquierda = nodoAEliminar -> izquierda;
+				free(nodoAEliminar);
+				return raiz;
+			}
+
+			// Casos cuando hay nodos más grandes que el nodo a eliminar.
+
+			// El nodo a la derecha del nodo a eliminar es el más chico de los grandes.
+			if(SoloHijoDerecho(nodoAEliminar -> derecha) == 1){
+				nodoAEliminar -> derecha -> izquierda = nodoAEliminar -> izquierda;
+				if(strcmp(nodoAEliminar -> contacto -> nombre, padre -> contacto -> nombre) > 0){
+					padre -> derecha = nodoAEliminar -> derecha;
+					free(nodoAEliminar);
+					return raiz;
+				}
+				padre -> izquierda = nodoAEliminar -> derecha;
+				free(nodoAEliminar);
+				return raiz;
+			}
+			// El nodo a la derecha del nodo a eliminar no es el más chico.
+			struct Nodo *nodoMasChico = MasPequenioDeLosGrandes(nodoAEliminar -> derecha);
+			struct Nodo *padreNodoMasChico = BuscarPadre(raiz, nodoMasChico);
+			padreNodoMasChico -> izquierda = nodoMasChico -> derecha;
+			if(strcmp( nodoAEliminar -> contacto -> nombre, padre -> contacto -> nombre) > 0){
+				padre -> derecha = nodoMasChico;
+			}else{
+				padre -> izquierda = nodoMasChico;	
+			}
+			nodoMasChico -> derecha = nodoAEliminar-> derecha;
+			free(nodoAEliminar);
+			return raiz;
+		}
+		// Si el nodo a eliminar es raiz
+		if(EsHoja(nodoAEliminar) == 1){
+			free(nodoAEliminar);
+			return NULL;
+		}	
+		if(SoloHijoIzquierdo(nodoAEliminar) == 1){
+			struct Nodo *nuevaRaiz = nodoAEliminar -> izquierda;
+			free(nodoAEliminar);
+			return nuevaRaiz;
+		}
+		if(SoloHijoDerecho(nodoAEliminar -> derecha) == 1){
+			struct Nodo *nuevaRaiz = nodoAEliminar -> derecha;
+			nuevaRaiz -> izquierda = nodoAEliminar -> izquierda;
+			free(nodoAEliminar);
+			return nuevaRaiz;
+		}
+    
+    // El nodo de la derecha de la raiz es el más pequeño.
+		struct Nodo *nodoMasChico = MasPequenioDeLosGrandes(nodoAEliminar -> derecha);
+    if(nodoMasChico == nodoAEliminar -> derecha)
+    {
+      nodoMasChico -> izquierda = nodoAEliminar -> izquierda;
+      free(nodoAEliminar);
+      return nodoMasChico;
+    }
+    
+		struct Nodo *padreNodoMasChico = BuscarPadre(raiz, nodoMasChico);
+		padreNodoMasChico -> izquierda = nodoMasChico -> derecha;
+		nodoMasChico -> izquierda = nodoAEliminar -> izquierda;
+		nodoMasChico -> derecha = nodoAEliminar -> derecha;
+		free(nodoAEliminar);
+		return nodoMasChico;
+	}
+	return raiz;
+}
+
+void 
+ReemplazarNodoEnEliminacion(struct Nodo *nodoAEliminar, struct Nodo *nodoAReemplazador)
+{
+  struct Nodo *padreNodoAEliminar = NULL;
+  struct Nodo *padreHijoNodoAEliminar = NULL;
+  padreNodoAEliminar = BuscarPadre(agenda -> contactos, nodoAEliminar);
+  padreHijoNodoAEliminar = BuscarPadre(agenda -> contactos, nodoAReemplazador);
+  if(padreNodoAEliminar != NULL){
+      if(padreNodoAEliminar -> izquierda == nodoAEliminar)
+      {
+        padreNodoAEliminar -> izquierda = nodoAReemplazador;
+        free(padreHijoNodoAEliminar);
+      }else{
+        padreNodoAEliminar -> derecha = nodoAReemplazador;
+        free(padreHijoNodoAEliminar);
+      }
+  }
+}
+
+struct Nodo* 
+BuscarPadre(struct Nodo *raiz, struct Nodo *nodoHijo)
+{
+  if(nodoHijo == raiz)
   {
     return NULL;
   }
-  if(TieneDosHijos(nodoActual) == 1)
-  {
-    masPequenioDeLosGrandes = MasPequenioDeLosGrandes(nodoActual -> derecha);
-  }
+	if(nodoHijo != raiz){
+		if(raiz -> derecha  == nodoHijo || raiz -> izquierda == nodoHijo){
+			return raiz;
+		}	
+		if(strcmp(nodoHijo -> contacto -> nombre , raiz -> contacto -> nombre) > 0){
+			return BuscarPadre(raiz -> derecha, nodoHijo);
+		}
+		return BuscarPadre(raiz -> izquierda, nodoHijo);
+	}
 }

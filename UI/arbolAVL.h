@@ -52,6 +52,8 @@
     void BalancearArbol(struct Nodo *);
     int ObtenerRecorrido(struct Nodo *, struct Nodo *);
     void ChecarBalanceo();
-    //struct Nodo* EliminarNodo(struct Nodo*, char[]);
+    struct Nodo* BuscarPadre(struct Nodo *, struct Nodo *);
+    void ReemplazarNodoEnEliminacion(struct Nodo *, struct Nodo *);
+    struct Nodo* EliminarNodo(struct Nodo *, struct Nodo *);
 
 #endif

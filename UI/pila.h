@@ -14,5 +14,4 @@ struct Pila {
 void push(struct Pila *pila, struct Nodo *);
 void pop(struct Pila *pila);
 struct NodoLista* peek(struct Pila *);
-void MostrarDatosPila(struct Pila *);
 #endif

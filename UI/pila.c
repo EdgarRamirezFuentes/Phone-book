@@ -18,13 +18,3 @@ struct NodoLista* peek(struct Pila *pila){
 	return pila -> contactos;
 }
 
-void MostrarDatosPila(struct Pila *pila){
-	if(pila != NULL){
-		struct Pila *tmp = NULL;
-		tmp = pila;
-		while(tmp -> contactos != NULL){
-			puts(tmp ->contactos->contacto->contacto->nombre);
-			tmp -> contactos = tmp -> contactos ->siguiente;
-		}
-	}
-}

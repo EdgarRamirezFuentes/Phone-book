@@ -126,7 +126,6 @@ AgregarContacto()
     system("clear");
     __fpurge(stdin);
     pila -> contactos = NULL;
-    puts("Agregar contacto\n\n");
     struct Nodo *busqueda = NULL;
     struct Contacto *nuevoContacto = NULL;
     nuevoContacto = (struct Contacto*)malloc(sizeof(struct Contacto));
@@ -237,7 +236,46 @@ void ImprimirContacto(struct Nodo *busqueda){
 void 
 EliminarContacto()
 {
-
+    if(agenda -> contactos == NULL){
+        system("clear");
+        puts("No hay contactos registrados en la agenda");
+        return;
+    }
+    struct Nodo *nodoAEliminar = NULL;
+    struct Nodo *padreNodoAEliminar = NULL;
+    char nombre[100];
+    puts("Ingresa el nombre del contacto a eliminar: ");
+    __fpurge(stdin);
+    fgets(nombre,100, stdin);
+    char *cadena = NULL;
+    cadena = &nombre;
+    ConvertirAMayus(cadena);
+    nodoAEliminar = BuscarNodo(agenda -> contactos, cadena);
+    if(nodoAEliminar == NULL){
+        system("clear");
+        puts("El contacto no está registrado en la agenda");
+        return;
+    }
+    if(EsRaiz(nodoAEliminar) == 0)
+    {
+        padreNodoAEliminar = BuscarPadre(agenda -> contactos, nodoAEliminar);
+    }
+    agenda -> contactos = EliminarNodo(agenda -> contactos, nodoAEliminar);
+    system("clear");
+    if(agenda -> contactos != NULL && padreNodoAEliminar != NULL)
+    {
+        if(CalcularFactorDeBalance(padreNodoAEliminar -> izquierda) > 1 || CalcularFactorDeBalance(padreNodoAEliminar -> izquierda) < -1)
+        {
+            padreNodoAEliminar -> izquierda = Rotar(padreNodoAEliminar -> izquierda);
+        }
+        if(CalcularFactorDeBalance(padreNodoAEliminar -> derecha) > 1 || CalcularFactorDeBalance(padreNodoAEliminar -> derecha) < -1)
+        {
+            padreNodoAEliminar -> derecha = Rotar(padreNodoAEliminar -> derecha);
+        }
+        BalancearArbol(padreNodoAEliminar);
+    }
+    agenda -> cantidadContactos = agenda -> cantidadContactos - 1;
+    puts("Contacto eliminado correctamente.");
 }
 
 void 
@@ -352,7 +390,6 @@ void
 MostrarContactos()
 {
     system("clear");
-    puts("Mostrar contactos\n\n");
     if(agenda -> cantidadContactos == 0){
         puts("No existen contactos en la agenda.");
         return;
