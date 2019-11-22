@@ -274,6 +274,7 @@ EliminarContacto()
         }
         BalancearArbol(padreNodoAEliminar);
     }
+    BalancearArbol(agenda -> contactos);
     agenda -> cantidadContactos = agenda -> cantidadContactos - 1;
     puts("Contacto eliminado correctamente.");
 }
