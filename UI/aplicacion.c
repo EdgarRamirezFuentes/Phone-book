@@ -401,7 +401,7 @@ MostrarContactos()
 
 void
 BFS(struct Nodo *nodoActual){
-	printf("%s %d", nodoActual -> contacto -> nombre, nodoActual -> factorDeBalance);
+	printf("%s", nodoActual -> contacto -> nombre);
 	if(nodoActual -> izquierda != NULL){
 		lista = AgregarNodoAlFinal(lista, nodoActual -> izquierda);
 	}	
