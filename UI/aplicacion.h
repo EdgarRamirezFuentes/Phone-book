@@ -5,10 +5,10 @@
 #include <stdio.h>
 #include <stdlib.h> // Incluida para utilizar system().
 #include <unistd.h> // Incluida para utilizar sleep().
+#include <stdio_ext.h> // Incluida para utilizar __fpurge():
 #include "arbolAVL.h"
 
-struct Agenda *agenda;
-struct NodoLista *lista;
+struct NodoLista *lista; // Utilizada para checar el árbol en BFS.
 
 void IniciarAplicacion();
 void MostrarMenuPrincipal(char *);
@@ -25,7 +25,7 @@ void EstablecerNumeroCasa(struct Contacto *);
 void EstablecerNumeroCelular(struct Contacto *);
 void EstablecerCorreo(struct Contacto *);
 int ValidarOpcionReiniciarSistema(char *);
-int ReiniciarSistema(char *);
+int VolverAlMenuPrincipal(char *);
 void ConvertirAMayus(char *);
 void ImprimirContacto(struct Nodo *);
 void RealizarModifcacion(char *, struct Nodo *);

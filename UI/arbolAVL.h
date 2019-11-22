@@ -5,7 +5,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "pila.h"
-#include "aplicacion.h"
     
     struct Nodo{
         int factorDeBalance;
@@ -31,7 +30,7 @@
     };
 
     struct Pila *pila;
-    char operacionExitosa;
+    struct Agenda *agenda;
 
     struct Nodo* AgregarNuevoNodo(struct Nodo *, struct Contacto *);
     void MostrarNodos(struct Nodo *);

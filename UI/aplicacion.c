@@ -23,7 +23,7 @@ IniciarAplicacion()
     {
         MostrarMenuPrincipal(apuntadorOpcion);
         IrHaciaOpcion(apuntadorOpcion);
-    }while(ReiniciarSistema(apuntadorOpcion) == 1);
+    }while(VolverAlMenuPrincipal(apuntadorOpcion) == 1);
 }
 
 void 
@@ -110,12 +110,12 @@ IrHaciaOpcion(char *opcion)
         break;
         case '6':
             puts("Hasta luego");
-            exit(1);
+            exit(EXIT_SUCCESS);
         break;
         default:
             system("clear");
             puts("Se detectó un error, se detendrá la ejecución del programa.");
-            exit (-1);
+            exit (EXIT_FAILURE);
         break;
     }
 }
@@ -212,7 +212,7 @@ BuscarContacto()
     __fpurge(stdin);
     fgets(nombre,100, stdin);
     char *cadena = NULL;
-    cadena = &nombre;
+    cadena = &nombre[0];
     ConvertirAMayus(cadena);
     struct Nodo *busqueda = NULL;
     busqueda =BuscarNodo(agenda -> contactos, nombre);
@@ -248,7 +248,7 @@ EliminarContacto()
     __fpurge(stdin);
     fgets(nombre,100, stdin);
     char *cadena = NULL;
-    cadena = &nombre;
+    cadena = &nombre[0];
     ConvertirAMayus(cadena);
     nodoAEliminar = BuscarNodo(agenda -> contactos, cadena);
     if(nodoAEliminar == NULL){
@@ -286,7 +286,7 @@ ModificarContacto(char *opcion)
     __fpurge(stdin);
     fgets(nombre,100, stdin);
     char *cadena = NULL;
-    cadena = &nombre;
+    cadena = &nombre[0];
     ConvertirAMayus(cadena);
     struct Nodo *busqueda = NULL;
     busqueda = BuscarNodo(agenda -> contactos, nombre);
@@ -418,7 +418,7 @@ BFS(struct Nodo *nodoActual){
 }
 
 
-int ReiniciarSistema(char *opcion){
+int VolverAlMenuPrincipal(char *opcion){
     do
     {   
         puts("¿Qué deseas hacer?\n1.- Regresar al menú principal.\n2.-Salir del programa.");
