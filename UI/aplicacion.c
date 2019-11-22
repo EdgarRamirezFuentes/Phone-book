@@ -361,8 +361,8 @@ MostrarContactos()
         return;
     }
     MostrarNodos(agenda -> contactos);
-    /*puts("Orden en BFS");
-    BFS(agenda -> contactos);*/
+    puts("Orden en BFS");
+    BFS(agenda -> contactos);
 }
 
 void

@@ -37,7 +37,7 @@
     struct Nodo* BuscarNodo (struct Nodo *, char []);
     int CalcularFactorDeBalance(struct Nodo *);
     int CalcularAltura (struct Nodo *);
-    struct Nodo* Rotar(struct Nodo *, struct Contacto *);
+    struct Nodo* Rotar(struct Nodo *);
     struct Nodo* RotacionIzquierda(struct Nodo *);
     struct Nodo* RotacionDerecha(struct Nodo *);
     struct Nodo* RotacionDerechaIzquierda(struct Nodo *);

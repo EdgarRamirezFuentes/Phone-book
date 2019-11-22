@@ -34,38 +34,38 @@ AgregarNuevoNodo (struct Nodo *raiz, struct Contacto *contacto, char *operacionE
     do
     {
       struct Nodo *contactoActual = peek(pila) -> contacto;
-      contactoActual -> factorDeBalance = CalcularFactorDeBalance(contactoActual);
+      
       if(pila -> contactos != NULL){
           pop(pila);
       }
-      if(contactoActual -> factorDeBalance > 1 || contactoActual -> factorDeBalance < -1){
-        return Rotar(contactoActual, contacto);
+      if(CalcularFactorDeBalance(contactoActual) > 1 || CalcularFactorDeBalance(contactoActual) < -1){
+        return Rotar(contactoActual);
       }
       return raiz;
     }while(pila -> contactos != NULL);
 }
 
 struct Nodo*
-Rotar(struct Nodo *nodoActual, struct Contacto *contacto)
+Rotar(struct Nodo *nodoActual)
 {
     //Rotación a la izquierda.
-    if(strcmp(contacto -> nombre, nodoActual -> contacto -> nombre) > 0){
-      if(strcmp(contacto -> nombre, nodoActual -> derecha -> contacto -> nombre) > 0)
+    if(nodoActual -> factorDeBalance > 1){
+      if(CalcularFactorDeBalance(nodoActual -> derecha) == 1)
         return RotacionIzquierda(nodoActual);
     }
     //Rotación a la derecha.
-    if(strcmp(contacto -> nombre, nodoActual -> contacto -> nombre) < 0){
-      if(strcmp(contacto -> nombre, nodoActual -> izquierda -> contacto -> nombre) < 0)
+    if(nodoActual -> factorDeBalance < -1){
+      if(CalcularFactorDeBalance(nodoActual -> izquierda) == -1)
         return RotacionDerecha(nodoActual);
     }
     //Rotación a la derecha-izquierda
-    if(strcmp(contacto -> nombre, nodoActual -> contacto -> nombre) > 0){
-      if(strcmp(contacto -> nombre, nodoActual -> derecha ->contacto -> nombre) < 0)
+    if(nodoActual -> factorDeBalance > 1){
+      if(CalcularFactorDeBalance(nodoActual -> derecha) == -1)
         return RotacionDerechaIzquierda(nodoActual);
     }
     //Rotación a la izquierda-derecha
-    if(strcmp(contacto -> nombre, nodoActual -> contacto -> nombre) > 0){
-      if(strcmp(contacto -> nombre, nodoActual -> derecha ->contacto -> nombre) < 0)
+    if(nodoActual -> factorDeBalance < -1){
+      if(CalcularFactorDeBalance(nodoActual -> izquierda) == 1)
         return RotacionIzquierdaDerecha(nodoActual);
     }
 }
@@ -164,7 +164,8 @@ CalcularFactorDeBalance(struct Nodo *raiz)
   }
   alturaIzquierda = CalcularAltura (raiz -> izquierda);
   alturaDerecha = CalcularAltura (raiz -> derecha);
-  return alturaIzquierda - alturaDerecha;
+  raiz -> factorDeBalance = alturaDerecha - alturaIzquierda;
+  return raiz -> factorDeBalance;
 }
 
 int
